@@ -1,88 +1,89 @@
+# This script is to encrypt and decrypt a text file"
+
+from binascii import Error
+
+import cryptography
+
 from cryptography.fernet import Fernet
+
 
 def write_key():
     """Function to generate and save a key"""
     
-    # Generates a fresh fernet key
+    # Generates a fresh Fernet key
     key = Fernet.generate_key()
-    with open("static/crypto.key", "wb") as key_file:
-        key_file.write(key)
+    with open("static/crypto.key", "wb") as crypto_file:
+        crypto_file.write(key)
 
 def load_key():
-    """This function loads the saved key from the key.key directory"""
+    """The function to call the saved key from the file."""
 
     return open("static/crypto.key", "rb").read()
 
-# # Now generating and writing the key to a file:
-#write_key()
+# Generate and save the key into a file
+# write_key()
+"""Uncomment to if you want to renew the saved key, 
+and comment again before decrypt.
+"""
 
-# This key will be initialized with the Fernet class
+# Initialize the saved key with the Fernet class
 key = load_key()
 
-# # Converting message to bytes with 'encode' method
-# message = "my secret message".encode()
 
-# # Initializing the Fernet class with that key
-# f = Fernet(key)
-
-# # Encrypt the message
-# encrypted = f.encrypt(message)
-
-# # Decrypt the encrypted message
-# decryption = f.decrypt(encrypted)
-
-# print(decryption)
-
-
-
-# First, writing a function to encrypt a file given the file name and key
 def encrypt(filename, key):
-    """Given a filename (str) and key (bytes), it encrypts the file and write it."""
-
-    f = Fernet(key)
-
-    # After initializing the Fernet object with the given key, let's read the target file first
-    with open(filename, "rb") as file:
-        """This will read all data from the file."""
-        
-        # File_data contains the data of the file, encrypting it
-        file_data = file.read()
-
-        # Encrypt data
-        encrypted_data = f.encrypt(file_data)
-
-        # Write the encrypted file
-        with open(filename, "wb") as file:
-            file.write(encrypted_data)
-            """Writing back the encrypted file with the same 
-            name, so it will override the original.
-            """
-
-# Now, writing the decryption function
-def decrypt(filename, key):
-    """Given a filename (str) and key (bytes), it decrypts the 
-    file and write it.
-    """
-    f = Fernet(key)
-    with open(filename, "rb") as file:
-
-        # Read the encrypted data
-        encrypted_data = file.read()
+    """Function to encrypt and write a file"""
     
-    # Decrypt data
-    decrypted_data = f.decrypt(encrypted_data)
+    f = Fernet(key)
+    
+    # Read original data from the file
+    with open(filename, "rb") as file:
+        data = file.read()
 
-    # Write the original file
+    # Encrypt data
+    encrypted_data = f.encrypt(data)
+
+    # Write encrypted data into the file
     with open(filename, "wb") as file:
-        file.write(decrypted_data)
+            file.write(encrypted_data)
+            """Writing back the encrypted data into the file,
+            this overwrites the original file.
+            """
+    print("Encryption completed!")
+
+
+def decrypt(filename, key):
+    """Function to decrypt and write the encrypted file."""
+    
+    f = Fernet(key)
+
+    # Read encrypted data
+    with open(filename, "rb") as file:
+        encrypted_data = file.read() 
+    
+    try:
+        # Decrypt data
+        decrypted_data = f.decrypt(encrypted_data)
+    
+    except cryptography.fernet.InvalidToken:
+        print("The 'write_key' is likely left in active mode, " 
+              "and a new key generated during decryption.")
+    except Error:
+        print("It is 'incorrect padding' error!")
+    except (TypeError, UnboundLocalError):
+        print("Error has to be fixed.")
+
+    try:
+        # Write decrypted/original data into the file
+        with open(filename, "wb") as file:
+            file.write(decrypted_data)
+    except UnboundLocalError:
+        print("Don't run the script. The file might already be corrupted.")
+    else:
+        print("The data is decrypted successfully!")
 
 
 file = "static/demo_text.txt"
 
-# encrypt(file, key)
+encrypt(file, key)
 
-decrypt(file, key)
-
-
-        
-        
+# decrypt(file, key)
