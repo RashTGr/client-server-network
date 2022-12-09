@@ -43,8 +43,8 @@ def encrypt(filename, key):
     encrypted_data = f.encrypt(data)
 
     # Write encrypted data into the file
-    with open(filename, "wb") as file:
-            file.write(encrypted_data)
+    with open(filename, "wb") as encrypted_file:
+            encrypted_file.write(encrypted_data)
             """Writing back the encrypted data into the file,
             this overwrites the original file.
             """
@@ -57,8 +57,8 @@ def decrypt(filename, key):
     f = Fernet(key)
 
     # Read encrypted data
-    with open(filename, "rb") as file:
-        encrypted_data = file.read() 
+    with open(filename, "rb") as encrypt_file:
+        encrypted_data = encrypt_file.read() 
     
     try:
         # Decrypt data
@@ -74,8 +74,8 @@ def decrypt(filename, key):
 
     try:
         # Write decrypted/original data into the file
-        with open(filename, "wb") as file:
-            file.write(decrypted_data)
+        with open(filename, "wb") as decrypt_file:
+            decrypt_file.write(decrypted_data)
     except UnboundLocalError:
         print("Don't run the script. The file might already be corrupted.")
     else:

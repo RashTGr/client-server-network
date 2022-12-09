@@ -1,4 +1,7 @@
 # Creating a dictionary
+
+import pickle
+
 tech_acronyms = dict(zip(['CPU', 'IoT', 'GHz', 'CLI', 'FTP', 'LAN', 'WAN'], 
                          ['Central Processing Unit', 
                          'Internet of Things', 
@@ -9,6 +12,6 @@ tech_acronyms = dict(zip(['CPU', 'IoT', 'GHz', 'CLI', 'FTP', 'LAN', 'WAN'],
                          'Wide Area Network',
                          ]))
 
+serialise = pickle.dumps(tech_acronyms)
 
-
-print(tech_acronyms)
+print(serialise)
