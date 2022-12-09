@@ -10,9 +10,16 @@ header = 64
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(addr)
 
+# # Defining function to send info
+# def send(msg):
+#     message = msg.encode("utf-8")
+#     msg_length = len(message)
+#     send_length = str(msg_length).encode("utf-8")
+#     send_length += b' ' * (header - len(send_length))
+#     client.send(send_length)
+#     client.send(message)
 
-
-
+# send('Hello!')
 
 
 

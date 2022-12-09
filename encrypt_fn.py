@@ -22,8 +22,8 @@ def load_key():
 
 # Generate and save the key into a file
 # write_key()
-"""Uncomment to if you want to renew the saved key, 
-and comment again before decrypt.
+"""Uncomment to renew the saved key, and comment 
+again before decrypt operation.
 """
 
 # Initialize the saved key with the Fernet class

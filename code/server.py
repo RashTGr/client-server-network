@@ -8,7 +8,7 @@ Port = 17000
 Server = socket.gethostbyname(socket.gethostname())
 addr = (Server, Port)
 header = 64
-
+status = "!Disconnected"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -17,20 +17,20 @@ server.bind(addr)
 
 # Manage the connection between server and client
 def handle_client(conn, addr):
-    print(f"[CONNECTED].. connection to {addr} successful")
+    print(f"[NEW CONNECTION].. connection to {addr} successful")
 
     connected = True
     while connected:
-        # msg_len = conn.recv(header).decode("utf-8")
-        # if msg_len:
-        #     msg_len = int(msg_len)
-            msg = conn.recv(msg_len).decode("utf-8")
-
+        msg_length = conn.recv(header).decode("utf-8")
+        if msg_length: 
+            msg_length = int(msg_length)
+            msg = conn.recv(msg_length).decode("utf-8")
+            
             # To handle client disconnection 
-            # if msg == "!Disconnected":
-            #     connected = False
-
+            if msg == status:
+                connected = False
             print(f"[{addr}] {msg}")
+        
     conn.close()
 
 
@@ -39,13 +39,18 @@ def start():
     pass it to 'handle client' function for processing.
     """
     server.listen()
+    print(f"[LISTENING] server is listening on {Server}")
     while True:
         conn, addr = server.accept()
+
+        # To keep track of current users connected
+        # !This method works with Python 3 versions
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[Active Connections] {threading.active_count()}")
+        print(f"[Active Connections] {threading.active_count()- 1}")
 
-
+print("[STARTING] server is starting...")
+start()
 
 
 # # Create socket for the server
