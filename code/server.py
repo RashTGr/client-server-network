@@ -8,7 +8,7 @@ Port = 17000
 Server = socket.gethostbyname(socket.gethostname())
 addr = (Server, Port)
 header = 64
-status = "!Disconnected"
+conn_status = "..!TERMINATED"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -27,9 +27,13 @@ def handle_client(conn, addr):
             msg = conn.recv(msg_length).decode("utf-8")
             
             # To handle client disconnection 
-            if msg == status:
+            if msg == conn_status:
                 connected = False
+
             print(f"[{addr}] {msg}")
+
+            # Delivery message to client
+            conn.send("Delivered!".encode("utf-8"))
         
     conn.close()
 
@@ -39,7 +43,7 @@ def start():
     pass it to 'handle client' function for processing.
     """
     server.listen()
-    print(f"[LISTENING] server is listening on {Server}")
+    print(f"[LISTENING] Server is listening on {Server}")
     while True:
         conn, addr = server.accept()
 
@@ -47,9 +51,8 @@ def start():
         # !This method works with Python 3 versions
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[Active Connections] {threading.active_count()- 1}")
+        print(f"CLIENTS:_ {threading.active_count()- 1}")
 
-print("[STARTING] server is starting...")
 start()
 
 

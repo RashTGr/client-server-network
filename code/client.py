@@ -6,21 +6,30 @@ Port = 17000
 Server = socket.gethostbyname(socket.gethostname())
 addr = (Server, Port)
 header = 64
+conn_status = "..!TERMINATED"
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(addr)
 
-# # Defining function to send info
-# def send(msg):
-#     message = msg.encode("utf-8")
-#     msg_length = len(message)
-#     send_length = str(msg_length).encode("utf-8")
-#     send_length += b' ' * (header - len(send_length))
-#     client.send(send_length)
-#     client.send(message)
+# Defining function to send info
+def send(msg):
+    message = msg.encode("utf-8")
+    msg_length = len(message)
+    send_length = str(msg_length).encode("utf-8")
+    send_length += b' ' * (header - len(send_length))
+    client.send(send_length)
+    client.send(message)
+    
+    # Receive delivery message
+    print(client.recv(2048).decode("utf-8"))
 
-# send('Hello!')
+send('Hello!')
+input()
+send('How is it going?')
+input()
+send('What is the project progress?')
 
+send(conn_status)
 
 
 
