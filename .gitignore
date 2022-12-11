@@ -1,7 +1,3 @@
-*.dat
-serdes.json
-serdes.xml
-.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
