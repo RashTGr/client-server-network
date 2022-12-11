@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 cryptography = "*"
 dicttoxml = "*"
+xmltodict = "*"
+sympy = "==1.11.1"
 
 [dev-packages]
 
