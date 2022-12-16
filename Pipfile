@@ -8,6 +8,7 @@ cryptography = "*"
 dicttoxml = "*"
 sympy = "==1.11.1"
 xmltodict = "==0.13.0"
+tqdm = "*"
 
 [dev-packages]
 
