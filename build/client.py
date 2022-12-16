@@ -1,42 +1,108 @@
 # Setup the Client socket
 
+import os
 import socket
+import pickle
+import json
+from dicttoxml import dicttoxml
+
+import pickling as pk
 
 
 # Parameters for configuring the 'Client' socket
-# getting local machine name
+## getting local machine name
 HOST = socket.gethostbyname(socket.gethostname())
-# reserving a free port for network
+## reserving a free port for network
 PORT = 17000    
 addr = (HOST, PORT)
-# setting byte limit for send/receive data
-header = 64
-# message to handle disconnections
-connect_status = "..!TERMINATED"
+## setting byte limit for send/receive data
+bytesize = 5120
 
 # Create a client socket and bind it to the address
 clnt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 clnt.connect(addr)
 
+# Config for data transmission
+## pickling formats
+binary = ''
+_json = ''
+xml = ''
+## print to screen or to file
+to_screen = ''
+to_file = ''
+## setting for text file
+enc_txt_file = True
+## Text file parameters
+filepath = "../static/demo_text.txt"
+filesize = os.path.getsize(filepath)
+"""This variables serve as an actuator for calling 
+a particular function.
+"""
 
-def send(data):
+# Data to be passed to the server
+tech_dict = pk.tech_acronyms
+
+
+def send():
     """Send serialised data within the allotted bytes."""
+    # Send dictionary with pickling formats
+    while True:
+        try:
+            # Binary, json, xml to 'screen' 
+            if binary and to_screen:
+                serialised = pickle.dumps(tech_dict)
+                return clnt.send(serialised)
 
-    data = data.encode("utf-8")
-    data_size = len(data)
-    send_length = str(data_size).encode("utf-8")
-    send_length += b' ' * (header - len(send_length))
-    clnt.send(send_length)
-    clnt.send(data)
+            elif _json and to_screen:
+                serialised = json.dumps(tech_dict)
+                return clnt.send(serialised.encode('utf-8'))
+
+            elif xml and to_screen:
+                serialised = dicttoxml(tech_dict)
+                return clnt.send(serialised)
+
+            # Binary, json, xml to 'file'
+            elif binary and to_file:
+                serialised = pk.ser_bnr(tech_dict)
+                try:
+                    return clnt.send(str(serialised).encode('utf-8'))
+                except (AttributeError, TypeError):
+                    print('NonType object encoding issue. Please check the source code!')
+            elif _json and to_file:
+                serialised = pk.ser_json(tech_dict)
+                try:
+                    return clnt.send(str(serialised).encode('utf-8'))
+                except (AttributeError, TypeError):
+                    print('NonType object encoding issue. Please check the source code!')
+            elif xml and to_file:
+                serialised = pk.ser_xml(tech_dict)
+                try:
+                    return clnt.send(str(serialised).encode('utf-8'))
+                except (AttributeError):
+                    print('NonType object encoding issue. Please check the source code!')
+            else:
+                print('The user input is required;' 
+                       'please select an available configuration!')    
+        finally:
+            print(clnt.recv(bytesize).decode("utf-8"))
+        clnt.close()              
+
+def send_txt_files():
+    """Sending text files over a server-client 
+    network is handled by this function.
+    """
     
-    # Receive delivery message
-    print(clnt.recv(1024).decode("utf-8"))
+    with open(filepath, 'r') as textfile:
+        while True:
+            data = textfile.read(filesize)
+            if not data:
+                break
+            clnt.send(data.encode('utf-8'))
+            print(clnt.recv(bytesize).decode('utf-8'))
+    textfile.close()
 
-send('Hello!')
-input()
-send('How is it going?')
-input()
-send('What is the project progress?')
 
-# Disconnect at the end of communication
-send(connect_status)
+if __name__ == "__main__":
+    # Function call    
+    # send()
+    # send_txt_files()
