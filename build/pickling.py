@@ -31,6 +31,7 @@ filepath_xml = '../static/serdes.xml'
 ## Assign dictionary
 assign_dict = tech_acronyms
 
+
 # Serialise data in 'binary' format
 def ser_bnr(assign_dict):
     """Create 'dat' file in static folder and write 
@@ -71,7 +72,7 @@ def des_json(assign_dict):
     try:
         with open(filepath_json, 'r') as read_j:
             json_to_dict = json.load(read_j)
-            # Pretty print method to print dict in a well-formatted way
+            # Pretty-print method to print dict in a well-formatted way
             pprint.pprint(json_to_dict)
     except EOFError:
         print("Deserialisation is completed!")
@@ -101,7 +102,7 @@ def des_xml(assign_dict):
         try:
             # Parse and convert it into dictionary
             xml_to_dict = xmltodict.parse(my_xml)
-            # Pretty print method to print dict in a well-formatted way
+            # Pretty-print method to print dict in a well-formatted way
             pprint.pprint(xml_to_dict)
         except EOFError:
             print("Deserialisation is completed!")
