@@ -18,6 +18,7 @@ addr = (HOST, PORT)
 ## setting byte limit for send/receive data
 bytesize = 5120
 
+
 # Create a client socket and bind it to the address
 clnt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 clnt.connect(addr)
@@ -80,29 +81,26 @@ def send():
                     return clnt.send(str(serialised).encode('utf-8'))
                 except (AttributeError):
                     print('NonType object encoding issue. Please check the source code!')
+            
+            # Processing with a standalone text file
+            elif enc_txt_file:
+                # Open the file to read and send data
+                with open(filepath, 'r') as textfile:
+                    while True:
+                        data = textfile.read()
+                        if not data:
+                            break
+                        return clnt.send(data.encode('utf-8'))
             else:
                 print('The user input is required;' 
                        'please select an available configuration!')    
         finally:
+            # Delivery message from server
             print(clnt.recv(bytesize).decode("utf-8"))
+            textfile.close()
         clnt.close()              
-
-def send_txt_files():
-    """Sending text files over a server-client 
-    network is handled by this function.
-    """
-    
-    with open(filepath, 'r') as textfile:
-        while True:
-            data = textfile.read(filesize)
-            if not data:
-                break
-            clnt.send(data.encode('utf-8'))
-            print(clnt.recv(bytesize).decode('utf-8'))
-    textfile.close()
 
 
 if __name__ == "__main__":
     # Function call    
-    # send()
-    # send_txt_files()
+    send()

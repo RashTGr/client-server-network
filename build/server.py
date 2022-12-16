@@ -70,45 +70,24 @@ def gr_a_server():
                 recved = conn.recv(bytesize).decode('utf-8')
                 return pprint(pk.des_xml(recved))
             
-            # Text file
+            # Processing with a standalone text file
             elif enc_txt_file:
+                # Create and open a NEW file to write the received data
                 with open('received_file.txt', 'w') as textfile:
                     while True:
                         data = conn.recv(bytesize).decode('utf-8')
-                        if not data:
-                            break
-                        textfile.write(data)
-                        # conn.send(bytes('data received', 'utf-8'))
-                textfile.close()    
-            
+                        return textfile.write(data)
             else:
                 print('The user input is required;' 
                        'please select an available configuration!')
         finally:
-            print(f"\n_pickling process completed!_'\n_By: [{addr}]")
-            # Delivery message to client
+            print(f"\n_The Transmission is Complete!_'\n_by: [{addr}]")
+            # Delivery message to clients
             conn.send("Delivered!".encode("utf-8"))
+            textfile.close()
         conn.close()
 
-# def handle_txt_file():
-#     """Sending text files over a server-client 
-#     network is handled by this function.
-#     """
-#     serv.listen()
-#     print('[+] Listening..')
-#     conn, addr = serv.accept()
-#     print(f'[+] Client connected from {addr}')
-
-#     with open('received_file.txt', 'w') as textfile:
-#         while True:
-#             data = conn.recv(bytesize).decode('utf-8')
-#             if not data:
-#                 break
-#             textfile.write(data)
-#             conn.send(bytes('data received', 'utf-8'))
-#     textfile.close()
 
 if __name__ == "__main__":
     # Function call, activate listening
     gr_a_server()
-    # handle_txt_file()
