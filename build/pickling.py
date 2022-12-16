@@ -42,7 +42,7 @@ def ser_bnr(assign_dict):
             pickle.dump(assign_dict, write_bnr)
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
-    write_bnr.close()
+        write_bnr.close()
 
 # Deserialize 'binary' data
 def des_bnr(assign_dict):
@@ -53,7 +53,7 @@ def des_bnr(assign_dict):
             pprint.pprint(bnr_to_dict)
     except AttributeError:
         print("Possible data corruption or import error!")
-    read_bnr.close()
+        read_bnr.close()
 
 # Serialise data in 'json' format
 def ser_json(assign_dict):
@@ -65,7 +65,7 @@ def ser_json(assign_dict):
             json.dump(assign_dict, write_j)
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
-    write_j.close()
+        write_j.close()
 
 # Deserialize 'json' data
 def des_json(assign_dict):
@@ -76,7 +76,7 @@ def des_json(assign_dict):
             pprint.pprint(json_to_dict)
     except EOFError:
         print("Deserialisation is completed!")
-    read_j.close()
+        read_j.close()
         
 # Serialise data in 'XML' format
 def ser_xml(assign_dict):
@@ -89,7 +89,7 @@ def ser_xml(assign_dict):
             write_xml.write(decoded)
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
-    write_xml.close()
+        write_xml.close()
 
 # Deserialize 'XML' data
 def des_xml(assign_dict):
@@ -106,7 +106,7 @@ def des_xml(assign_dict):
             pprint.pprint(xml_to_dict)
         except EOFError:
             print("Deserialisation is completed!")
-    read_xml.close()
+        read_xml.close()
 
 if __name__ == "__main__":
     # Function calls
