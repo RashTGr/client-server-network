@@ -7,3 +7,46 @@ Project info: # Build a simple CLIENT/SERVER NETWORK
               # Due Date: 19 December, 2022
               # Group A
               1234567
+
+TThis is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+
+Project info: # Build a simple CLIENT/SERVER NETWORK
+              # The client and server can be on separate machines OR on the same machine.
+              # Due Date: 19 December, 2022
+              # Group A
+              1234567
+
+TThis is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+
+Project info: # Build a simple CLIENT/SERVER NETWORK
+              # The client and server can be on separate machines OR on the same machine.
+              # Due Date: 19 December, 2022
+              # Group A
+              1234567
+
+TThis is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+
+Project info: # Build a simple CLIENT/SERVER NETWORK
+              # The client and server can be on separate machines OR on the same machine.
+              # Due Date: 19 December, 2022
+              # Group A
+              1234567
+
+TThis is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+
+Project info: # Build a simple CLIENT/SERVER NETWORK
+              # The client and server can be on separate machines OR on the same machine.
+              # Due Date: 19 December, 2022
+              # Group A
+              1234567
+TThis is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
+This is to demonstrate encryption of a text file.
