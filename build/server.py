@@ -8,10 +8,11 @@ from pprint import pprint
 
 import pickling as pk
 
+
 # Parameters for configuring the 'Server' socket
 ## local machine name
 HOST = socket.gethostbyname(socket.gethostname())
-## a free port for network
+## reserve a free port for network
 PORT = 17000    
 addr = (HOST, PORT)
 ## byte limit for send/receive data
@@ -23,22 +24,23 @@ serv.bind(addr)
 
 # Config for data transmission
 ## pickling formats
-binary = ''
+binary = True
 _json = ''
 xml = ''
-## print to screen or to file
+## print To Screen or To File
 to_screen = ''
-to_file = ''
+to_file = True
 ## setting for text file
-enc_txt_file = True
+enc_txt_file = ''
 """This variables serve as an actuator for calling 
 a particular function.
 """
 
 def gr_a_server():
-    """Start listening for connections and pass it to 
-    'connect' function for processing.
+    """Start listening for new connections and handle 
+    client communication.
     """
+    # It is set to four client max at the same time
     serv.listen(4)
     print(f"[LISTENING..] on host: {HOST}")
     while True:
@@ -48,15 +50,15 @@ def gr_a_server():
             # Binary, json, xml to 'screen'
             if binary and to_screen:
                 recved = conn.recv(bytesize)
-                # Pretty print method to print dict in a well-formatted way
+                # Pretty-print method to print dict in a well-formatted way
                 return pprint(pickle.loads(recved))
             elif _json and to_screen:
                 recved = conn.recv(bytesize).decode('utf-8')
-                # Pretty print method to print dict in a well-formatted way
+                # Pretty-print method to print dict in a well-formatted way
                 return pprint(json.loads(recved))
             elif xml and to_screen:
                 recved = conn.recv(bytesize).decode('utf-8')
-                # Pretty print method to print dict in a well-formatted way
+                # Pretty-print method to print dict in a well-formatted way
                 return pprint(xmltodict.parse(recved))
 
             # Binary, json, xml to 'file'
@@ -77,17 +79,17 @@ def gr_a_server():
                     while True:
                         data = conn.recv(bytesize).decode('utf-8')
                         return textfile.write(data)
+                textfile.close()
             else:
-                print('The user input is required;' 
-                       'please select an available configuration!')
+                print('User input is required; please familiarise yourself\n with' 
+                       '"Readme" file and choose preferred configuration!')
         finally:
             print(f"\n_The Transmission is Complete!_'\n_by: [{addr}]")
             # Delivery message to clients
             conn.send("Delivered!".encode("utf-8"))
-            textfile.close()
         conn.close()
 
 
 if __name__ == "__main__":
-    # Function call, activate listening
+    # Function call
     gr_a_server()

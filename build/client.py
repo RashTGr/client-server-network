@@ -10,14 +10,13 @@ import pickling as pk
 
 
 # Parameters for configuring the 'Client' socket
-## getting local machine name
+## local machine name
 HOST = socket.gethostbyname(socket.gethostname())
-## reserving a free port for network
+## reserve a free port for network
 PORT = 17000    
 addr = (HOST, PORT)
-## setting byte limit for send/receive data
+## byte limit for send/receive data
 bytesize = 5120
-
 
 # Create a client socket and bind it to the address
 clnt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,14 +24,14 @@ clnt.connect(addr)
 
 # Config for data transmission
 ## pickling formats
-binary = ''
+binary = True
 _json = ''
 xml = ''
-## print to screen or to file
+## print To Screen or To File
 to_screen = ''
-to_file = ''
+to_file = True
 ## setting for text file
-enc_txt_file = True
+enc_txt_file = ''
 ## Text file parameters
 filepath = "../static/demo_text.txt"
 filesize = os.path.getsize(filepath)
@@ -40,24 +39,23 @@ filesize = os.path.getsize(filepath)
 a particular function.
 """
 
-# Data to be passed to the server
+# Dictionary variable to be passed to the functions
 tech_dict = pk.tech_acronyms
 
 
 def send():
-    """Send serialised data within the allotted bytes."""
-    # Send dictionary with pickling formats
+    """Send serialised data within the allotted bytes and with
+    available formats.
+    """
     while True:
         try:
             # Binary, json, xml to 'screen' 
             if binary and to_screen:
                 serialised = pickle.dumps(tech_dict)
                 return clnt.send(serialised)
-
             elif _json and to_screen:
                 serialised = json.dumps(tech_dict)
                 return clnt.send(serialised.encode('utf-8'))
-
             elif xml and to_screen:
                 serialised = dicttoxml(tech_dict)
                 return clnt.send(serialised)
@@ -68,19 +66,19 @@ def send():
                 try:
                     return clnt.send(str(serialised).encode('utf-8'))
                 except (AttributeError, TypeError):
-                    print('NonType object encoding issue. Please check the source code!')
+                    print('NonType object encoding issue.Please check the source code!')
             elif _json and to_file:
                 serialised = pk.ser_json(tech_dict)
                 try:
                     return clnt.send(str(serialised).encode('utf-8'))
                 except (AttributeError, TypeError):
-                    print('NonType object encoding issue. Please check the source code!')
+                    print('NonType object encoding issue.Please check the source code!')
             elif xml and to_file:
                 serialised = pk.ser_xml(tech_dict)
                 try:
                     return clnt.send(str(serialised).encode('utf-8'))
                 except (AttributeError):
-                    print('NonType object encoding issue. Please check the source code!')
+                    print('NonType object encoding issue.Please check the source code!')
             
             # Processing with a standalone text file
             elif enc_txt_file:
@@ -91,13 +89,13 @@ def send():
                         if not data:
                             break
                         return clnt.send(data.encode('utf-8'))
+                    textfile.close()
             else:
-                print('The user input is required;' 
-                       'please select an available configuration!')    
+                print('User input is required; please familiarise yourself\n with' 
+                       '"Readme" file and choose preferred configuration!')   
         finally:
             # Delivery message from server
             print(clnt.recv(bytesize).decode("utf-8"))
-            textfile.close()
         clnt.close()              
 
 
