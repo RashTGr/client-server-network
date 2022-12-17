@@ -90,7 +90,6 @@ def ser_xml(assign_dict):
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
         write_xml.close()
-        return filepath_xml
 
 # Deserialize 'XML' data
 def des_xml(assign_dict):
