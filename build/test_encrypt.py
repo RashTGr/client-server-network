@@ -15,7 +15,7 @@ class TestEncryption(unittest.TestCase):
 
     def test_encrypt(self):
         # Test that the encrypt function returns the expected output
-        encrypt("D:\my project code v1\client-server-network-master\static\crypto.key.key", self.key)
+        encrypt(".**.\static**\crypto.key", self.key)
         with open("D:\my project code v1\client-server-network-master\static\crypto.key.key", "rb") as encrypted_file:
             encrypted_data = encrypted_file.read()
         # Check that the encrypted data is different from the original data
