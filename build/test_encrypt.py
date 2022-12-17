@@ -36,6 +36,9 @@ class TestEncryption(unittest.TestCase):
 file = "D:\my project code v1\client-server-network-master\static\crypto.key.key"
 
 if __name__ == '__main__':
+      **unittest.main()
+      test_encrypt(self)
+      test_decrypt(self)**
      encrypt(file, key)
 if __name__ == '__main__':
     unittest.main()
