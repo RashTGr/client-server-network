@@ -40,6 +40,7 @@ def ser_bnr(assign_dict):
     try:
         with open(filepath_binary, 'wb') as write_bnr:
             pickle.dump(assign_dict, write_bnr)
+            return filepath_binary
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
         write_bnr.close()
@@ -51,6 +52,7 @@ def des_bnr(assign_dict):
             bnr_to_dict = pickle.load(read_bnr)
             # Pretty-print method to print dict in a well-formatted way
             pprint.pprint(bnr_to_dict)
+            return bnr_to_dict
     except AttributeError:
         print("Possible data corruption or import error!")
         read_bnr.close()
@@ -63,6 +65,7 @@ def ser_json(assign_dict):
     try:
         with open(filepath_json, 'w') as write_j:
             json.dump(assign_dict, write_j)
+            return filepath_json
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
         write_j.close()
@@ -72,8 +75,9 @@ def des_json(assign_dict):
     try:
         with open(filepath_json, 'r') as read_j:
             json_to_dict = json.load(read_j)
+            return json_to_dict
             # Pretty-print method to print dict in a well-formatted way
-            pprint.pprint(json_to_dict)
+            pprint.pprint(json_to_dict
     except EOFError:
         print("Deserialisation is completed!")
         read_j.close()
@@ -90,6 +94,7 @@ def ser_xml(assign_dict):
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
         write_xml.close()
+        return filepath_xml
 
 # Deserialize 'XML' data
 def des_xml(assign_dict):
@@ -104,6 +109,7 @@ def des_xml(assign_dict):
             xml_to_dict = xmltodict.parse(my_xml)
             # Pretty-print method to print dict in a well-formatted way
             pprint.pprint(xml_to_dict)
+            return xml_to_dict
         except EOFError:
             print("Deserialisation is completed!")
         read_xml.close()
