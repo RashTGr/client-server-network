@@ -63,7 +63,6 @@ def ser_json(assign_dict):
     try:
         with open(filepath_json, 'w') as write_j:
             json.dump(assign_dict, write_j)
-            return filepath_json
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
         write_j.close()
