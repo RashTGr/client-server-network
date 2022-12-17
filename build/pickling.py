@@ -104,8 +104,8 @@ def des_xml(assign_dict):
             # Parse and convert it into dictionary
             xml_to_dict = xmltodict.parse(my_xml)
             # Pretty-print method to print dict in a well-formatted way
-            pprint.pprint(xml_to_dict)
-            return xml_to_dict
+           return pprint.pprint(xml_to_dict)
+
         except EOFError:
             print("Deserialisation is completed!")
         read_xml.close()
