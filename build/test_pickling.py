@@ -1,14 +1,19 @@
-"""This is unit test for pickling script in 3 formats."""
-
+"""Script for pickling unit test  to one of the following three 
+formats: 'binary', 'JSON' and 'XML'.
+"""
+# Standard lib
 import unittest
+import pickle
+import json
+import pprint
 
-import pickling as pk
+# 3rd party lib
+from dicttoxml import dicttoxml
+import xmltodict
 
 
-class PicklingTest(unittest.TestCase):
-    # configure input & output to pass to each test scenario
-    def setUp(self):
-        self.input_all = dict(zip(['GHz', 'SSH', 'IG', 'IoT', 'M2M', 'S3', 'EC2'], 
+# Dictionary
+tech_acronyms = dict(zip(['GHz', 'SSH', 'IG', 'IoT', 'M2M', 'S3', 'EC2'], 
                          ['Giga Hertz', 
                          'Secure Shell',
                          'Internet Gateway',
@@ -17,52 +22,67 @@ class PicklingTest(unittest.TestCase):
                          'Simple Storage System',
                          'Elastic Compute Cloud',
                          ]))
-    
-        self.output_bnr = {
-            'EC2': 'Elastic Compute Cloud', 
-            'GHz': 'Giga Hertz', 
-            'IG': 'Internet Gateway', 
-            'IoT': 'Internet of Things', 
-            'M2M': 'Machine to Machine', 
-            'S3': 'Simple Storage System', 
-            'SSH': 'Secure Shell'}
-            
-        self.output_js = {
-            'EC2': 'Elastic Compute Cloud', 
-            'GHz': 'Giga Hertz', 
-            'IG': 'Internet Gateway', 
-            'IoT': 'Internet of Things', 
-            'M2M': 'Machine to Machine', 
-            'S3': 'Simple Storage System', 
-            'SSH': 'Secure Shell'}
+
+
+## Assign dictionary
+assign_dict = tech_acronyms
+
+
+class TestSerializationFunctions(unittest.TestCase):
+    def setUp(self):
+        self.tech_acronyms = dict(zip(['GHz', 'SSH', 'IG', 'IoT', 'M2M', 'S3', 'EC2'], 
+                         ['Giga Hertz', 
+                         'Secure Shell',
+                         'Internet Gateway',
+                         'Internet of Things', 
+                         'Machine to Machine', 
+                         'Simple Storage System',
+                         'Elastic Compute Cloud',
+                         ]))
+        self.filepath_binary = 'D:\zip file version\client-server-network-combatzone-2\static\serdes.dat'
+        self.filepath_json = 'D:\zip file version\client-server-network-combatzone-2\static\serdes.json'
+        self.filepath_xml = 'D:\zip file version\client-server-network-combatzone-2\static\serdes.xml'
         
-        self.output_xml = {'root': {'EC2': {'#text': 'Elastic Compute Cloud', '@type': 'str'},
-            'GHz': {'#text': 'Giga Hertz', '@type': 'str'},
-            'IG': {'#text': 'Internet Gateway', '@type': 'str'},
-            'IoT': {'#text': 'Internet of Things', '@type': 'str'},
-            'M2M': {'#text': 'Machine to Machine', '@type': 'str'},
-            'S3': {'#text': 'Simple Storage System', '@type': 'str'},
-            'SSH': {'#text': 'Secure Shell', '@type': 'str'}}}
+    def test_ser_bnr(self):
+        # Test serialization in binary format
+        ser_bnr(self.tech_acronyms)
+        with open(self.filepath_binary, 'rb') as f:
+            data = pickle.load(f)
+        self.assertEqual(data, self.tech_acronyms)
+        
+    def test_des_bnr(self):
+        # Test deserialization in binary format
+        ser_bnr(self.tech_acronyms)
+        data= des_bnr(self.tech_acronyms)
+        self.assertEqual(data, self.tech_acronyms)
+        
+    def test_ser_json(self):
+        # Test serialization in JSON format
+        ser_json(self.tech_acronyms)
+        with open(self.filepath_json, 'r') as f:
+            data = json.load(f)
+        self.assertEqual(data, self.tech_acronyms)
+        
+    def test_des_json(self):
+        # Test deserialization in JSON format
+        ser_json(self.tech_acronyms)
+        data = des_json(self.tech_acronyms)
+        self.assertEqual(data, self.tech_acronyms)
+        
+    def test_ser_xml(self):
+        # Test serialization in XML format
+        ser_xml(self.tech_acronyms)
+        with open(self.filepath_xml, 'r', encoding='utf-8') as f:
+            data = f.read()
+        self.assertEqual(data, dicttoxml(self.tech_acronyms).decode('utf-8'))
+        
+    def test_des_xml(self):
+        # Test deserialization in XML format
+        ser_xml(self.tech_acronyms)
+        data = des_xml(self.tech_acronyms)
+        self.assertEqual(data, self.tech_acronyms)
+        
+
     
-    # cleanup generated data during test cases
-    def tearDown(self):
-        self.input_all = 0
-        self.output_bnr = 0
-        self.output_js = 0
-        self.output_bnr = 0
-
-    # Unit test for each format with the given input-output data
-    def test_binary(self):
-        self.assertEqual(pk.ser_bnr(self.input_all), pk.des_bnr(self.output_bnr))
-
-    def test_json(self):
-        self.assertEqual(pk.ser_json(self.input_all), pk.des_json(self.output_js))
-
-    def test_xml(self):
-        self.assertEqual(pk.ser_xml(self.input_all), pk.des_xml(self.output_xml))
-
-print("Unit tests for Serialisation is completed!")
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
