@@ -51,7 +51,6 @@ def des_bnr(assign_dict):
             bnr_to_dict = pickle.load(read_bnr)
             # Pretty-print method to print dict in a well-formatted way
            return pprint.pprint(bnr_to_dict)
-            return bnr_to_dict
     except AttributeError:
         print("Possible data corruption or import error!")
         read_bnr.close()
