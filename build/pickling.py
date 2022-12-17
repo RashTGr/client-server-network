@@ -40,7 +40,6 @@ def ser_bnr(assign_dict):
     try:
         with open(filepath_binary, 'wb') as write_bnr:
             pickle.dump(assign_dict, write_bnr)
-            return filepath_binary
     except FileNotFoundError:
         print("Unable to open the file. Ensure file path is correct!")
         write_bnr.close()
