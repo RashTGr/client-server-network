@@ -72,7 +72,6 @@ def des_json(assign_dict):
     try:
         with open(filepath_json, 'r') as read_j:
             json_to_dict = json.load(read_j)
-            return json_to_dict
             # Pretty-print method to print dict in a well-formatted way
             pprint.pprint(json_to_dict
     except EOFError:
