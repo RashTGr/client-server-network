@@ -1,0 +1,37 @@
+Directory Tree
+Group Project for End of Assignment: TCP Server-Client Network.
+UoL, CSCK541, Group_A.
+.
+|   .gitignore
+|   directory_tree.txt
+|   Pipfile (dependencies file - auto gen)
+|   Pipfile.lock
+|   README.md
+|   
++---.vscode
+|       launch.json
+|       settings.json
+|       
++---build
+|   |   client.py
+|   |   encrypt_fn.py
+|   |   pickling.py
+|   |   received_file.txt
+|   |   server.py
+|   |   test_client.py
+|   |   test_encrypt.py
+|   |   test_pickling.py
+|   |   test_server.py
+|   |   __init__.py
+|   |   
+|   \---__pycache__
+|           __init__.cpython-310.pyc
+|           
+\---static
+        crypto.key
+        demo_text.txt
+        serdes.dat
+        serdes.json
+        serdes.xml
+        __init__.py
+___________________________________________        
