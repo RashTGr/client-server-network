@@ -1,13 +1,11 @@
-
+"""This is unit test for pickling script in 3 formats."""
 
 import unittest
 
-import build.pickling as pk
-
+import pickling as pk
 
 
 class PicklingTest(unittest.TestCase):
-
     # configure input & output to pass to each test scenario
     def setUp(self):
         self.input_all = dict(zip(['GHz', 'SSH', 'IG', 'IoT', 'M2M', 'S3', 'EC2'], 
@@ -63,7 +61,8 @@ class PicklingTest(unittest.TestCase):
     def test_xml(self):
         self.assertEqual(pk.ser_xml(self.input_all), pk.des_xml(self.output_xml))
 
+print("Unit tests for Serialisation is completed!")
+
 
 if __name__ == "__main__":
     unittest.main()
-    print("Unit tests for Serialisation is completed!")
