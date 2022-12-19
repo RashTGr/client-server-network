@@ -4,6 +4,7 @@ UoL, CSCK541, Group_A.
 .
 |   .gitignore
 |   directory_tree.txt
+|   Git_log.txt
 |   Pipfile (dependencies file - auto gen)
 |   Pipfile.lock
 |   README.md
