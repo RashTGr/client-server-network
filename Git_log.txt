@@ -1,0 +1,34 @@
+Mon Dec 19 21:05:33 2022 +0400 - RashadGr: Merge remote-tracking branch 'origin/master'
+Mon Dec 19 23:13:12 2022 +0800 - lhyky1206: Merge pull request #8 from RashTGr/Readme
+Mon Dec 19 19:00:02 2022 +0400 - Rashad: Create README file
+Mon Dec 19 15:32:41 2022 +0300 - sebakoke92: Update test_client.py (#6)
+Mon Dec 19 15:32:05 2022 +0300 - sebakoke92: Update test_server.py (#7)
+Mon Dec 19 00:54:23 2022 +0400 - RashadGr: remove unused files
+Sun Dec 18 19:56:46 2022 +0400 - RashadGr: update with return statements: Seba's comment
+Sun Dec 18 00:52:47 2022 +0300 - sebakoke92: update with 'return' statement
+Sat Dec 17 07:24:06 2022 +0300 - sebakoke92: Update test_encrypt.py
+Sat Dec 17 07:20:13 2022 +0300 - sebakoke92: Update test_pickling.py
+Sat Dec 17 05:17:50 2022 +0400 - RashadGr: directory tree generated
+Sat Dec 17 05:03:26 2022 +0400 - RashadGr: tests drafted for review
+Sat Dec 17 03:26:13 2022 +0400 - RashadGr: file close() bug during tests
+Fri Dec 16 07:27:26 2022 +0400 - RashadGr: server-client script is performing well
+Fri Dec 16 06:05:24 2022 +0400 - RashadGr: serailisation script is validated
+Fri Dec 16 05:54:17 2022 +0400 - RashadGr: validate encryption file prior to push
+Fri Dec 16 05:44:18 2022 +0400 - RashadGr: auto gen. txt kept in repo to prevent path issue
+Fri Dec 16 05:17:54 2022 +0400 - RashadGr: text file for transfer ops
+Fri Dec 16 05:06:57 2022 +0400 - RashadGr: xml reinstall to resolve shadowing issue
+Fri Dec 16 04:59:51 2022 +0400 - RashadGr: local imports added to init
+Mon Dec 12 15:27:10 2022 +0400 - RashadGr: 'overriding stdlib module' issue handled
+Sun Dec 11 22:02:13 2022 +0400 - RashadGr: revised with exception handling for all formats
+Sun Dec 11 19:53:15 2022 +0400 - RashadGr: json settings files of vscode removed from gitignore to push remote repo
+Sun Dec 11 19:49:37 2022 +0400 - RashadGr: serialisation data files released from gitignore for temp, to keep in VCS
+Sun Dec 11 18:29:55 2022 +0400 - RashadGr: files updated prior to adding to gitignore
+Sun Dec 11 17:24:07 2022 +0400 - RashadGr: serialisation is ready without exception hndlng
+Sun Dec 11 03:23:04 2022 +0400 - RashadGr: gitignore updated with dat, json, xml
+Sat Dec 10 03:33:00 2022 +0400 - RashadGr: optimisation for server, client
+Fri Dec 9 20:44:45 2022 +0400 - RashadGr: client-server communicates through plain text msg.
+Fri Dec 9 20:40:22 2022 +0400 - RashadGr: wrong comments revised
+Fri Dec 9 08:18:30 2022 +0400 - RashadGr: draft network scripts
+Thu Dec 8 02:24:43 2022 +0400 - RashadGr: exception handling applied
+Wed Dec 7 20:47:36 2022 +0400 - RashadGr: dictionary and encryption scripts are ready
+Sun Dec 4 00:02:48 2022 +0400 - RashadGr: initial commit for base structure
